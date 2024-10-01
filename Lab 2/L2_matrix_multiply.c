@@ -4,14 +4,18 @@
 /* specify how many trials to repeat the experiment;
    the elapsed time for each trial will be measured separately */
 
-#define NUM_TRIALS   3
-#define ROWS 3
-#define COLS 3
+#define NUM_TRIALS 1
+#define N 1920
 
 /* place other "#define" statements here for key parameters */
 
 
 /* place your global variables (e.g., large arrays) here */
+
+
+    int firstMatrix[N][N];
+    int secondMatrix[N][N];
+    int resultMatrix[N][N];
 
 /* this calls a library routine to record the current time
    which will be the number of seconds and nanoseconds
@@ -21,7 +25,7 @@
 
 void Time (struct timespec *p)
 {
-  //clock_gettime(CLOCK_REALTIME, p);
+  clock_gettime(CLOCK_REALTIME, p);
 }
 
 /* from two recorded times, compute and return the difference in seconds */
@@ -47,23 +51,24 @@ void initialize_my_data (void)
 
 /* place the code for your algorithm of interest here */
 
-void run_my_algorithm (int firstMatrix[ROWS][COLS], int secondMatrix[ROWS][COLS], int resultMatrix[ROWS][COLS])
+void run_my_algorithm ()
 {
-  for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
+  for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
             resultMatrix[i][j] = 0;
-            for (int k = 0; k < COLS; k++) {
+            for (int k = 0; k < N; k++) {
                 resultMatrix[i][j] += firstMatrix[i][k] * secondMatrix[k][j];
             }
         }
     }
-
+/*
   for (int i = 0; i < ROWS; i++) {
       for (int j = 0; j < COLS; j++) {
             printf("%d ", resultMatrix[i][j]);
         }
         printf("\n");
     }
+	*/
 }
 
 /* main routine that performs multiple trials and reports the results */
@@ -82,25 +87,10 @@ int main(int argc, char *argv[])
      output is initialized; experiments showed that first timing and printing
      floating-point value was suprisingly long */
 
-      int firstMatrix[ROWS][COLS] = {
-        {1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}
-    };
-
-    int secondMatrix[ROWS][COLS] = {
-        {9, 8, 7},
-        {6, 5, 4},
-        {3, 2, 1}
-    };
-
-    int resultMatrix[ROWS][COLS];
-
-
   initialize_my_data ();
 
   Time (&start);
-  run_my_algorithm (firstMatrix, secondMatrix,resultMatrix);
+  run_my_algorithm ();
   Time (&finish);
   printf ("\n");
   printf ("initialization run elapsed time = %g sec\n", TimeDiff (&start, &finish));
@@ -115,14 +105,8 @@ int main(int argc, char *argv[])
        so that algorithm behavior is the same each time */
     initialize_my_data ();
 
-    int resultMatrix[ROWS][COLS] = {
-        {0, 0, 0},
-        {0, 0, 0},
-        {0, 0, 0}
-    };
-
     Time (&start);
-    run_my_algorithm (firstMatrix, secondMatrix,resultMatrix);
+    run_my_algorithm ();
     Time (&finish);
 
     /* record the time difference for this trial in array for later analysis */

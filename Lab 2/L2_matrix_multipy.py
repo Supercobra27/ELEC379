@@ -1,7 +1,7 @@
 import numpy as np
 import time
 
-problem_size = 1000
+problem_size = 960
 
 N = problem_size
 
