@@ -1,0 +1,19 @@
+void PrintGraph(Graph *g, int show_duplicates){
+   int i;
+   Edge *p;
+
+   printf("Graph has %d vertices and %d edges.\n", g->num_vertices, g->num_edges);
+   printf("Graph is type %d\n", g->type);
+   printf("List of Edges:\n");
+
+   for(i = 0; i < g->num_vertices; i++){
+      for (p = g->v[i].adj; p != NULL; p = p->next){ //Adj List
+      if(g->type == UNDIRECTED && show_duplicates == 0 && p->other_vertex < p->vertex){
+         continue;
+      }else{
+         printf("  (%d, %d)\n",p->vertex, p->other_vertex);
+      }
+
+      }
+   }
+}
